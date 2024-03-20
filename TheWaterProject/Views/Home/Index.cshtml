@@ -8,14 +8,9 @@
 
     @foreach (Project record in Model.Projects)
     {
-        <h3>@record.ProjectName</h3>
-        <ul>
-           <li>Project Type: @record.ProjectType</li>
-            <li>Project Impact: @record.ProjectImpact</li>
-            <li>Project Installation: @record.ProjectInstallation</li>
-            <li>Project Phase: @record.ProjectPhase</li>
-        </ul>
+        <partial name="ProjectSummary" model="record"/>
     }
 
 
-<div page-model="@Model.PaginationInfo" page-action="Index"></div>
+<div page-model="@Model.PaginationInfo" page-action="Index" page-classes-enable="true" page-class="btn" 
+page-class-normal="btn-outline-dark" page-class-selected="btn-primary" class="btn-group pull-right m-1"></div>
