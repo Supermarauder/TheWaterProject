@@ -21,6 +21,9 @@ namespace TheWaterProject.Infrastructure
         [HtmlAttributeNotBound] // We don't want users to be able to type this
         public ViewContext? ViewContext { get; set; }
         public string? PageAction { get; set; }
+
+        [HtmlAttributeName(DictionaryAttributePrefix ="page-url-")]
+        public Dictionary<string, object> PageUrlValues { get; set; } = new Dictionary<string, object>();
         public PaginationInfo PageModel { get; set; }
 
         public bool PageClassesEnable { get; set; } = false;
@@ -37,11 +40,13 @@ namespace TheWaterProject.Infrastructure
                 IUrlHelper urlHelper = urlHelperFactory.GetUrlHelper(ViewContext);
 
                 TagBuilder result = new TagBuilder("div");
+                
 
                 for (int i = 1; i <= PageModel.TotalNumPages; i++)
                 {
                     TagBuilder tag = new TagBuilder("a");
-                    tag.Attributes["href"] = urlHelper.Action(PageAction, new {pageNum = i});
+                    PageUrlValues["pageNum"] = i;
+                    tag.Attributes["href"] = urlHelper.Action(PageAction, PageUrlValues);
                     
                     if (PageClassesEnable) 
                     {

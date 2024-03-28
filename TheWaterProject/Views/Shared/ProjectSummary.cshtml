@@ -15,4 +15,10 @@
         <li>Project Installation: @Model.ProjectInstallation</li>
         <li>Project Phase: @Model.ProjectPhase</li>
     </ul>
+    
+    <form method="post" asp-page="/Cart">
+        <input type ="hidden" asp-for="@Model.ProjectId" />
+        <button type="submit" class="btn-outline-success btn-sm float-end">Donate</button>
+    </form>
+    
 </div>

@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using TheWaterProject.Models;
 
@@ -12,6 +13,8 @@ builder.Services.AddDbContext<WaterProjectContext>(options =>
 });
 
 builder.Services.AddScoped<IWaterRepository, EFWaterRepository>();
+
+builder.Services.AddRazorPages();
 
 var app = builder.Build();
 
@@ -30,7 +33,11 @@ app.UseRouting();
 
 app.UseAuthorization();
 
-app.MapControllerRoute("pagination", "Projects/{pageNum}", new {Controller = "Home", action="Index"});
+app.MapControllerRoute("pagenumandtype", "{projectType}/{pageNum}", new { Controller = "Home", action = "Index" }); //Order of these map routes does matter
+app.MapControllerRoute("pagination", "{pageNum}", new {Controller = "Home", action="Index", pageNum = 1 });
+app.MapControllerRoute("projectType", "{projectType}", new {Controller = "Home", action="Index", pageNum = 1}); // defaults to page 1 if nothing is specified after rounding to a category
 app.MapDefaultControllerRoute();
+
+app.MapRazorPages();
 
 app.Run();
