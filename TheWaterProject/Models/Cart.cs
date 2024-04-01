@@ -26,13 +26,7 @@
 
         public void RemoveLine(Project proj) => Lines.RemoveAll(x => x.Project.ProjectId == proj.ProjectId);
         public void Clear() => Lines.Clear();
-        public decimal CalculateTotal()
-        {
-            var donation = Lines.Sum(x => 25 * x.Quantity);
-
-            return donation;
-
-        }
+        public decimal CalculateTotal() => Lines.Sum(x => 25 * x.Quantity);
         public class CartLine
         {
             public int CartLineId { get; set; }

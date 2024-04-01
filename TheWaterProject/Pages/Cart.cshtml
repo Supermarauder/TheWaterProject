@@ -1,5 +1,39 @@
 ﻿@page
-@model TheWaterProject.Pages.DonateModel
+@model TheWaterProject.Pages.CartModel
 @{
 }
-<h1>My First Razo Page!</h1>
+<h1>Your Cart</h1>
+<table class="table tabletable-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Project Name</th>
+            <th>Quantity</th>
+            <th class="text-right">Amount</th>
+            <th class="text-right">Subtotal</th>
+        </tr>
+
+    </thead>
+
+    <tbody>
+        @foreach (var line in Model.Cart?.Lines ?? Enumerable.Empty<Cart.CartLine>())
+        {
+            <tr>
+                <td class="text-left">@line.Project.ProjectName</td>
+                <td class="text-left">@line.Quantity</td>
+                <td class="text-left">$25</td>
+                <td class="text-left">@((line.Quantity * 25).ToString("c"))</td>
+            </tr>
+        }
+    </tbody>
+
+    <tfoot>
+        <tr>
+            <td colspan="3" class="text-right">Total:</td>
+            <td class="text-right">@Model.Cart?.CalculateTotal().ToString("c")</td>
+        </tr>
+    </tfoot>
+</table>
+
+<div class="text-center"> 
+    <a class="btn btn-primary" href="@Model.ReturnURL">Continue Donating</a>
+</div>
